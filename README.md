@@ -1,2 +1,3 @@
 # Calc.Co
-EECS 348 Software Engineering Calculator project for group 8
+This is the official page for the EECS 348 group 8 calculator project!
+
