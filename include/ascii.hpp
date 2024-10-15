@@ -3,7 +3,8 @@
 
 #include <iostream>
 
-namespace ascii {
+namespace ascii
+{
     std::string logo();
 }
 

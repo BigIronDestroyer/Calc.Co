@@ -4,8 +4,8 @@
 #include "../include/calculations.hpp"
 #include <queue>
 
-
-namespace parse{
+namespace parse
+{
     // Define the Result structure
     struct Result
     {
@@ -21,6 +21,5 @@ namespace parse{
     Result parse_eq(std::string equation);
     void do_calculations(std::string equation);
 }
-
 
 #endif

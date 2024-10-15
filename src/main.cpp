@@ -30,9 +30,9 @@ int main()
             std::cout << "Enter a Mathimatical Equation (! to quit): ";
             std::cin >> equation;
         }
-        catch(const std::runtime_error& e)
+        catch (const std::runtime_error &e)
         {
-            //catch divide by zero
+            // catch divide by zero
             std::cerr << e.what() << '\n';
         }
     }
