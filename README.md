@@ -33,7 +33,7 @@ make all
 or 
 
 ```
-Make CalcCo
+make CalcCo
 ```
 
 This will compile all the neccesary files to build the CalcCo
