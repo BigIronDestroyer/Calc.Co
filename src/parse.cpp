@@ -89,7 +89,7 @@ namespace parse
             int opp_len = queues.operators.size();
             int val_len = queues.values.size();
 
-            if ((val_len - 1) != opp_len)
+            if (val_len != (opp_len +1))
             {
                 queues.bool_error = true;
                 queues.err_msg = "Number of values do not match number of operators";
