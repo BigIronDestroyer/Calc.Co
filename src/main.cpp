@@ -22,7 +22,8 @@ int main()
             // get equation form user
             std::string equation;
             std::cout << "Enter a Mathimatical Equation (! to quit): ";
-            std::cin >> equation;
+            //cin only read till the first white space
+            std::getline(std::cin, equation);
             
             if (equation == "!"){
                 break;
