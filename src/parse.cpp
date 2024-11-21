@@ -27,7 +27,8 @@ namespace parse
             }
             // if the current element is a number or decimal
             else if (isdigit(equation[i]) || equation[i] == '.')
-            {
+            {   
+                int number = 0;
                 // string stream
                 // keeps track of a whole number
                 std::stringstream ss;
@@ -41,7 +42,6 @@ namespace parse
                 // while loop goes untill i is not a number or decimal
                 // we need to take a step back
                 i--;
-                int number;
                 // read what is in the string stream into numbers variable
                 ss >> number;
                 queues.values.push(number);
@@ -89,7 +89,7 @@ namespace parse
             int opp_len = queues.operators.size();
             int val_len = queues.values.size();
 
-            if ((val_len - 1) != opp_len)
+            if (val_len != (opp_len +1) || val_len == 0 || opp_len == 0)
             {
                 queues.bool_error = true;
                 queues.err_msg = "Number of values do not match number of operators";
@@ -111,7 +111,7 @@ namespace parse
                 // grab the top operator and remove it
                 std::string opp = queues.operators.front();
                 queues.operators.pop();
-                int x, y;
+                int x, y = 0;
                 // pop 2 number from the values stack for the first time
                 // grab the top number and pop it off to remove
                 if (is_first)

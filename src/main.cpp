@@ -11,24 +11,27 @@ int main()
 {
     // print a calulator and welcome message
     std::cout << ascii::logo();
-    std::cout << "Welcom to Cocalc your go to quick calclulator!\n\n";
+    std::cout << "Welcom to Cocalc, your go to quick calclulator!\n\n";
 
-    // get equation form user
-    std::string equation;
-    std::cout << "Enter a Mathimatical Equation (! to quit): ";
-    std::cin >> equation;
 
-    while (equation != "!")
+    while (true)
     {
         // return equation solution
         try
         {
+            // get equation form user
+            std::string equation;
+            std::cout << "Enter a Mathimatical Equation (! to quit): ";
+            //cin only read till the first white space
+            std::getline(std::cin, equation);
+            
+            if (equation == "!"){
+                break;
+            } else {
             // solve the equation
             parse::do_calculations(equation);
+            }
 
-            // get user input
-            std::cout << "Enter a Mathimatical Equation (! to quit): ";
-            std::cin >> equation;
         }
         catch (const std::runtime_error &e)
         {
