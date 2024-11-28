@@ -1,5 +1,6 @@
 #include <iostream>
 #include <stdexcept>
+#include <sstream>
 #include <string>
 #include <cmath> // For pow function
 
@@ -18,7 +19,7 @@ namespace calculate
         case '/':
             if (y == 0)
             {
-                throw std::runtime_error("Divition by Zero");
+                throw std::runtime_error("Error: Divition by Zero");
             }
             return x / y;
         case '*':
@@ -27,7 +28,9 @@ namespace calculate
             return x % y;
         default:
             // If none of the cases match, you need to handle this
-            throw std::invalid_argument("Invalid operator");
+            std::ostringstream oss;
+            oss << "Expected an opperator but found '" << opp << "'";
+            throw std::runtime_error(oss.str());
         }
     }
 

@@ -18,8 +18,13 @@ namespace parse
         std::string err_msg;
     };
 
-    Result parse_eq(std::string equation);
-    void do_calculations(std::string equation);
+   
+
+    int Parse(const char* equation);
+    //functions for parsign numbers,adding, and multipling
+    int parseFactor(char*& x);
+    int parseExpresion(const char*& x);
+    int parseTerm(const char*& x);
 }
 
 #endif

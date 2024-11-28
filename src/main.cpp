@@ -13,6 +13,8 @@ int main()
     std::cout << ascii::logo();
     std::cout << "Welcom to Cocalc, your go to quick calclulator!\n\n";
 
+    // Create a buffer to hold the user input
+    const int MAX_SIZE = 100;
 
     while (true)
     {
@@ -20,17 +22,21 @@ int main()
         try
         {
             // get equation form user
-            std::string equation;
-            std::cout << "Enter a Mathimatical Equation (! to quit): ";
+            char* equation = new char[MAX_SIZE];
+            std::cout << "Enter a Mathimatical Equation (Q or q to quit): ";
             //cin only read till the first white space
-            std::getline(std::cin, equation);
+            std::cin.getline(equation, MAX_SIZE);
             
-            if (equation == "!"){
+            if (*equation == 'Q' || *equation == 'q'){
                 break;
             } else {
-            // solve the equation
-            parse::do_calculations(equation);
+                // parse the equation
+                int result = parse::Parse(equation);
+                printf("Output: %d\n", result);
             }
+
+            // delete dynamically allocated memory after using it
+            delete[] equation;
 
         }
         catch (const std::runtime_error &e)
