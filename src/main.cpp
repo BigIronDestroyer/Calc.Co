@@ -43,7 +43,7 @@ int main()
                 }
                 else
                 {
-                    printf("Output: %.2f\n", result);
+                    printf("Output: %.3f\n", result);
                 }
             }
         }

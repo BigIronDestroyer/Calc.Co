@@ -12,7 +12,7 @@
 this also helps to execute the order of precedence
 Expression → Term { '+' Term | '-' Term }
 Term       → Factor { '*' Factor | '/' Factor | '%' Factor }
-Factor     → number | '(' Expression ')'
+Factor     → number | '(' Expression ')' | - Factor | + Factor
 */
 using namespace tokenizer;
 namespace parser
@@ -26,7 +26,7 @@ namespace parser
         // catches unfinished inputs
         if (tokenItr == end)
         {
-            throw std::runtime_error("Incomplete input, unexpected end of input while parsing factor.");
+            throw std::runtime_error("Error: Incomplete input, unexpected end of input while parsing factor.");
         }
 
         // if the current element is a number or decimal
@@ -53,9 +53,27 @@ namespace parser
             else
             {
                 // throws error if the parenthese is not closed
-                throw std::runtime_error("Expected ')' but found something else");
+                throw std::runtime_error("Error: Expected ')' but found something else");
             }
             return result;
+        }
+
+        // handle unary operators + -
+        if (tokenItr->type == Tokenizer::TokenType::OPERATOR3)
+        {
+            std::string tokenValue = tokenItr->value;
+            tokenItr++;
+            if (tokenValue == "+")
+            {
+                double factor = parseFactor(tokenItr, end);
+                return factor;
+            }
+            else if (tokenValue == "-")
+            {
+                // negeate the next factor
+                double factor = parseFactor(tokenItr, end);
+                return -(factor);
+            }
         }
 
         // if there is no retrun there is an error
@@ -134,6 +152,38 @@ namespace parser
         return fact1;
     }
 
+    void Parser::checkIsEvenParentheses(std::vector<Tokenizer::Token>::const_iterator &tokenItr, std::vector<Tokenizer::Token>::const_iterator &end)
+    {
+        int LParenthese = 0;
+        while (tokenItr != end)
+        {
+            if (tokenItr->value == "(")
+            {
+                // there is an open parentheses
+                LParenthese++;
+            }
+            else if (tokenItr->value == ")")
+            {
+                // there is a closed parentheses
+                LParenthese--;
+            }
+            // go to the next token
+            tokenItr++;
+            /*
+            there should be an even number of parenthese
+            the thought behind this is that since they are
+            even the number of left paretheses minus the number
+            of right parentheses should be 0
+            */
+        }
+
+        // throw error if they are unbalanced
+        if (LParenthese != 0)
+        {
+            throw std::runtime_error("Error: The parentheses are not properly matched");
+        }
+    }
+
     double Parser::Parse(const std::string equation)
     {
         Tokenizer tokenizer;
@@ -141,8 +191,16 @@ namespace parser
         // gets the begining and end of tokens as constants
         auto tokenItr = tokens.cbegin();
         auto end = tokens.cend();
+        // will be used for the checking parentheses function
+        auto tokenItrCopy = tokenItr;
+        auto endCopy = end;
         // parse and return value
+        checkIsEvenParentheses(tokenItrCopy, endCopy);
         double result = parseExpression(tokenItr, end);
+        if (tokenItr != end)
+        {
+            throw std::runtime_error("Error: Parseing unexpectedly end while the equations was not fully processed");
+        }
         return result;
     }
 }

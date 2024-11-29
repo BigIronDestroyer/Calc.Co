@@ -30,7 +30,7 @@ namespace calculate
         default:
             // If none of the cases match, you need to handle this
             std::ostringstream oss;
-            oss << "Expected an opperator but found '" << opp << "'";
+            oss << "Error: Unsupported Operator '" << opp << "'";
             throw std::runtime_error(oss.str());
         }
     }
