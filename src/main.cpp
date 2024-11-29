@@ -34,8 +34,17 @@ int main()
             else
             {
                 // parse the equation
-                int result = parser.Parse(equation);
-                printf("Output: %d\n", result);
+                double result = parser.Parse(equation);
+
+                // if the result is ##.00 floor it to an int
+                if (std::floor(result) == result)
+                {
+                    printf("Output: %d\n", static_cast<int>(result));
+                }
+                else
+                {
+                    printf("Output: %.2f\n", result);
+                }
             }
         }
         catch (const std::runtime_error &e)

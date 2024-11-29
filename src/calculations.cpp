@@ -8,7 +8,7 @@
 
 namespace calculate
 {
-    int solve(char opp, int x, int y)
+    double solve(char opp, double x, double y)
     {
         switch (opp)
         {
@@ -25,7 +25,8 @@ namespace calculate
         case '*':
             return x * y;
         case '%':
-            return x % y;
+            // doubles have to be cast into int because C does not support modulos with doubles
+            return static_cast<int>(x) % static_cast<int>(y);
         default:
             // If none of the cases match, you need to handle this
             std::ostringstream oss;
@@ -34,7 +35,7 @@ namespace calculate
         }
     }
 
-    int exponent(int x, int y)
+    double exponent(int x, int y)
     {
         return pow(x, y);
     }

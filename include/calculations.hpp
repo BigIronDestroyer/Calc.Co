@@ -4,8 +4,8 @@
 namespace calculate
 {
 
-    int solve(char opp, int x, int y);
-    int exponent(int x, int y);
+    double solve(char opp, double x, double y);
+    double exponent(double x, double y);
 
 }
 
