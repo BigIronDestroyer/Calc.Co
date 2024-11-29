@@ -12,7 +12,7 @@ namespace tokenizer
     {
     public:
         // defines token types
-        // OPERATOR1 refers to E
+        // OPERATOR1 refers to **
         // OPERATOR2 refers to * / %
         // OPERATOR3 refers to + -
         enum class TokenType

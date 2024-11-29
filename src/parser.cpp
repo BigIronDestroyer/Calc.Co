@@ -63,6 +63,13 @@ namespace parser
         {
             std::string tokenValue = tokenItr->value;
             tokenItr++;
+
+            // check for missing opperand
+            if (tokenItr != end && tokenItr->value == ")")
+            {
+                throw std::invalid_argument("Error: Missing Operand");
+            }
+
             if (tokenValue == "+")
             {
                 double factor = parseFactor(tokenItr, end);
@@ -84,10 +91,23 @@ namespace parser
 
     double Parser::parseTerm(std::vector<Tokenizer::Token>::const_iterator &tokenItr, std::vector<Tokenizer::Token>::const_iterator &end)
     {
-        // parse multiplication division and modulo
+        // parse multiplication division and modulo and exponents
 
         // get first sequece of multiplication division and modulo
         double prod1 = parseFactor(tokenItr, end);
+
+        // while the current opperator is exponents
+        while (tokenItr != end && tokenItr->type == Tokenizer::TokenType::OPERATOR1)
+        {
+            // step over the opperator
+            tokenItr++;
+
+            // get first sequece of multiplication division and modulo
+            double prod2 = parseFactor(tokenItr, end);
+
+            // evaluate
+            prod1 = calculate::exponent(prod1, prod2);
+        }
 
         // while the current opperator is mul or div or mod
         while (tokenItr != end && tokenItr->type == Tokenizer::TokenType::OPERATOR2)
@@ -142,6 +162,12 @@ namespace parser
 
             // step over the opperator
             tokenItr++;
+
+            // check for invalid opperand sequence
+            if (tokenItr != end && tokenItr->value == ")")
+            {
+                throw std::invalid_argument("Error: Invalid Operator Sequence");
+            }
 
             // get the next number
             double fact2 = parseTerm(tokenItr, end);

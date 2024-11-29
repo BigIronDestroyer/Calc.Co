@@ -35,7 +35,7 @@ namespace calculate
         }
     }
 
-    double exponent(int x, int y)
+    double exponent(double x, double y)
     {
         return pow(x, y);
     }
