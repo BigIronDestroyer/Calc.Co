@@ -31,7 +31,7 @@ namespace calculate
             // If none of the cases match, you need to handle this
             std::ostringstream oss;
             oss << "Error: Unsupported Operator '" << opp << "'";
-            throw std::runtime_error(oss.str());
+            throw std::invalid_argument(oss.str());
         }
     }
 

@@ -49,7 +49,10 @@ int main()
         }
         catch (const std::runtime_error &e)
         {
-            // catch divide by zero
+            std::cerr << e.what() << '\n';
+        }
+        catch (const std::invalid_argument &e)
+        {
             std::cerr << e.what() << '\n';
         }
     }
