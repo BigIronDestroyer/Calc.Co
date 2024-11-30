@@ -7,8 +7,9 @@
 #include "../include/parser.hpp"
 #include "../include/tokenizer.hpp"
 #include "../include/calculations.hpp"
+#include "../include/tree.hpp"
 
-/* parsing mechanisims for recersive decent parsing
+/* parsing mechanisims(gramar) for recersive decent parsing
 this also helps to execute the order of precedence
 Expression → Term { '+' Term | '-' Term }
 Term       → Factor { '*' Factor | '/' Factor | '%' Factor }
@@ -17,9 +18,8 @@ Factor     → number | '(' Expression ')' | - Factor | + Factor
 using namespace tokenizer;
 namespace parser
 {
-    std::string resultTree;
     //& makes sure that the pointer modified inside the function applies outside of it
-    double Parser::parseFactor(std::vector<Tokenizer::Token>::const_iterator &tokenItr, std::vector<Tokenizer::Token>::const_iterator &end)
+    tree::BinaryTree::Node *Parser::parseFactor(std::vector<Tokenizer::Token>::const_iterator &tokenItr, std::vector<Tokenizer::Token>::const_iterator &end, tree::BinaryTree *&Tree)
     {
         // parse numbers and parentheses
 
@@ -34,18 +34,20 @@ namespace parser
         if (tokenItr->type == Tokenizer::TokenType::NUMBER)
         {
             // turn string value into dopuble
-            double value = std::stod(tokenItr->value);
+            // createNode
+            tree::BinaryTree::Node *newNode = Tree->createNode(tokenItr->value);
             // move to the next token
             tokenItr++;
 
-            return value;
+            return newNode;
         }
 
         // handle parentheses
         if (tokenItr->type == Tokenizer::TokenType::PARENTHESES && tokenItr->value == "(")
         {
             tokenItr++; // step over the open parethese
-            double result = parseExpression(tokenItr, end);
+            // create a newNode
+            tree::BinaryTree::Node *newNode = parseExpression(tokenItr, end, Tree);
             if (tokenItr->type == Tokenizer::TokenType::PARENTHESES && tokenItr->value == ")")
             {
                 tokenItr++; // step over close parethese
@@ -55,13 +57,14 @@ namespace parser
                 // throws error if the parenthese is not closed
                 throw std::runtime_error("Error: Expected ')' but found something else");
             }
-            return result;
+            return newNode;
         }
 
         // handle unary operators + -
         if (tokenItr->type == Tokenizer::TokenType::OPERATOR3)
         {
-            std::string tokenValue = tokenItr->value;
+            std::string unaryOp = tokenItr->value;
+            //step over unary operator
             tokenItr++;
 
             // check for missing opperand
@@ -70,17 +73,15 @@ namespace parser
                 throw std::invalid_argument("Error: Missing Operand");
             }
 
-            if (tokenValue == "+")
-            {
-                double factor = parseFactor(tokenItr, end);
-                return factor;
-            }
-            else if (tokenValue == "-")
-            {
-                // negeate the next factor
-                double factor = parseFactor(tokenItr, end);
-                return -(factor);
-            }
+           
+            tree::BinaryTree::Node *newNode = parseFactor(tokenItr, end, Tree);
+            
+            //create a unaryOp node
+            tree::BinaryTree::Node *unaryNode = Tree->createNode(unaryOp);
+            unaryNode->left = nullptr;
+            unaryNode->right = newNode;
+
+            return unaryNode;
         }
 
         // if there is no retrun there is an error
@@ -89,76 +90,64 @@ namespace parser
         throw std::runtime_error(oss.str());
     }
 
-    double Parser::parseTerm(std::vector<Tokenizer::Token>::const_iterator &tokenItr, std::vector<Tokenizer::Token>::const_iterator &end)
+    tree::BinaryTree::Node *Parser::parseTerm(std::vector<Tokenizer::Token>::const_iterator &tokenItr, std::vector<Tokenizer::Token>::const_iterator &end, tree::BinaryTree *&Tree)
     {
         // parse multiplication division and modulo and exponents
 
         // get first sequece of multiplication division and modulo
-        double prod1 = parseFactor(tokenItr, end);
+        // tree::BinaryTree::Node* left
+        tree::BinaryTree::Node *left = parseFactor(tokenItr, end, Tree);
 
         // while the current opperator is exponents
         while (tokenItr != end && tokenItr->type == Tokenizer::TokenType::OPERATOR1)
         {
             // step over the opperator
+            // createNode
+            tree::BinaryTree::Node *opp = Tree->createNode(tokenItr->value);
+
+            // move to the next token
             tokenItr++;
 
             // get first sequece of multiplication division and modulo
-            double prod2 = parseFactor(tokenItr, end);
+            // create right node
+            tree::BinaryTree::Node *right = parseFactor(tokenItr, end, Tree);
 
             // evaluate
-            prod1 = calculate::exponent(prod1, prod2);
+            // insertNode
+            left = Tree->insertNode(opp, left, right);
         }
 
         // while the current opperator is mul or div or mod
         while (tokenItr != end && tokenItr->type == Tokenizer::TokenType::OPERATOR2)
         {
-            char opp = ' ';
-            // check for which opperator
-            if (tokenItr->value == "*")
-            {
-                opp = '*';
-            }
-            else if (tokenItr->value == "/")
-            {
-                opp = '/';
-            }
-            else if (tokenItr->value == "%")
-            {
-                opp = '%';
-            }
+            // create operator node
+            tree::BinaryTree::Node *opp = Tree->createNode(tokenItr->value);
 
             // step over the opperator
             tokenItr++;
 
             // get first sequece of multiplication division and modulo
-            double prod2 = parseFactor(tokenItr, end);
+            tree::BinaryTree::Node *right = parseFactor(tokenItr, end, Tree);
 
             // evaluate
-            prod1 = calculate::solve(opp, prod1, prod2);
+            // insertnode
+            left = Tree->insertNode(opp, left, right);
         }
-        return prod1;
-    }
 
-    double Parser::parseExpression(std::vector<Tokenizer::Token>::const_iterator &tokenItr, std::vector<Tokenizer::Token>::const_iterator &end)
+        return left;
+    }
+    tree::BinaryTree::Node *Parser::parseExpression(std::vector<Tokenizer::Token>::const_iterator &tokenItr, std::vector<Tokenizer::Token>::const_iterator &end, tree::BinaryTree *&Tree)
     {
         // parse addition and subtraction
 
         // get the first number
-        double fact1 = parseTerm(tokenItr, end);
+        // create left node
+        tree::BinaryTree::Node *left = parseTerm(tokenItr, end, Tree);
 
         // while the current opperator is add or sub
         while (tokenItr != end && tokenItr->type == Tokenizer::TokenType::OPERATOR3)
         {
-            char opp = ' ';
-            // check for addition
-            if (tokenItr->value == "+")
-            {
-                opp = '+';
-            }
-            else if (tokenItr->value == "-")
-            { // check for subtracqtion
-                opp = '-';
-            }
+            tree::BinaryTree::Node *opp = Tree->createNode(tokenItr->value);
 
             // step over the opperator
             tokenItr++;
@@ -170,12 +159,14 @@ namespace parser
             }
 
             // get the next number
-            double fact2 = parseTerm(tokenItr, end);
+            //// tree::BinaryTree::Node* right
+            tree::BinaryTree::Node *right = parseTerm(tokenItr, end, Tree);
 
             // evaluate
-            fact1 = calculate::solve(opp, fact1, fact2);
+            // insertNode(node, opp, fact1, fact2)
+            left = Tree->insertNode(opp, left, right);
         }
-        return fact1;
+        return left;
     }
 
     void Parser::checkIsEvenParentheses(std::vector<Tokenizer::Token>::const_iterator &tokenItr, std::vector<Tokenizer::Token>::const_iterator &end)
@@ -222,11 +213,17 @@ namespace parser
         auto endCopy = end;
         // parse and return value
         checkIsEvenParentheses(tokenItrCopy, endCopy);
-        double result = parseExpression(tokenItr, end);
+        tree::BinaryTree Tree = tree::BinaryTree();
+        tree::BinaryTree *treePtr = &Tree;
+        tree::BinaryTree::Node *resultTree = parseExpression(tokenItr, end, treePtr);
         if (tokenItr != end)
         {
             throw std::runtime_error("Error: Parseing unexpectedly end while the equations was not fully processed");
         }
+
+        //evaluate equation
+        double result = Tree.evaluateTree(resultTree);
+
         return result;
     }
 }

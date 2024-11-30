@@ -4,8 +4,7 @@
 namespace calculate
 {
 
-    double solve(char opp, double x, double y);
-    double exponent(double x, double y);
+    double solve(std::string opp, double x, double y);
 
 }
 

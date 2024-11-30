@@ -3,7 +3,6 @@
 #define TOKEN_HPP
 
 #include "../include/calculations.hpp"
-#include <queue>
 
 namespace tokenizer
 {
@@ -35,6 +34,8 @@ namespace tokenizer
         };
 
         std::vector<Token> tokenize(const std::string &expression);
+
+    private:
         void printTokens(const std::vector<Token> &tokens);
     };
 }
