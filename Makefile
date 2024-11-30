@@ -28,8 +28,8 @@ make_bin:
 
 all: $(Name)
 
-$(Name): make_bin ascii main calculation parser tokenizer
-	$(CC) $(Flags)  $(build_dir)/main.o $(build_dir)/ascii.o $(build_dir)/parser.o $(build_dir)/calculations.o $(build_dir)/tokenizer.o -o $(bin)/$(Name)
+$(Name): make_bin ascii main calculation parser tokenizer tree
+	$(CC) $(Flags)  $(build_dir)/main.o $(build_dir)/ascii.o $(build_dir)/parser.o $(build_dir)/calculations.o $(build_dir)/tokenizer.o $(build_dir)/tree.o -o $(bin)/$(Name)
 
 #construct main
 main: make_build
@@ -47,9 +47,13 @@ calculation: make_build
 parser: make_build
 	$(CC) $(Flags) -I$(lib_dir) -c $(source)/parser.cpp -o $(build_dir)/parser.o
 	
-#construct parse
+#construct tokenizer
 tokenizer: make_build
 	$(CC) $(Flags) -I$(lib_dir) -c $(source)/tokenizer.cpp -o $(build_dir)/tokenizer.o
+
+#construct tokenizer
+tree: make_build
+	$(CC) $(Flags) -I$(lib_dir) -c $(source)/tree.cpp -o $(build_dir)/tree.o
 
 
 #clear binary files
