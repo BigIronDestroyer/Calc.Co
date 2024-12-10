@@ -16,9 +16,9 @@ For ease of development this project uses GNU Make for building and compiling:
 
 #### Get Started
 
-For developers to get started first you need to clone this directory then change directory to the program folder
+For developers to get started first you need to clone this directory and then change the directory to the program folder
 
-In your terminal or command promt run the following:
+In your terminal or command prompt run the following:
 
 ```
 git clone https://github.com/BigIronDestroyer/Calc.Co.git
@@ -36,7 +36,7 @@ or
 make CalcCo
 ```
 
-This will compile all the neccesary files to build the CalcCo
+This will compile all the necessary files to build the CalcCo
 
 Afterwards to run the CalcCo program:
 
@@ -45,28 +45,28 @@ Afterwards to run the CalcCo program:
 ```
 
 ## How to Use CalcCo
-After running the program you will be met with the following prompted:
+After running the program you will be met with the following prompts:
 
 ```
-Enter a Mathimatical Equation (! to quit):
+Enter a Mathematical Equation (! to quit):
 ```
 
-Simply enter an equation to you desire to be solved for example:
+Enter the equation you desire to be solved for example:
 
 ```
-Enter a Mathimatical Equation (! to quit): 20/10
+Enter a Mathematical Equation (! to quit): 20/10
 
 ```
-Once you hit the enter key the CalcCo calculate to solution to the equation an print it out in the terminal
+Once you hit the enter key CalcCo calculates the solution to the equation and prints it out in the terminal
 
 or to quit the program
 
 ```
-Enter a Mathimatical Equation (! to quit): !
+Enter a Mathematical Equation (! to quit): !
 ```
 
 ### Operator Support Status 
-Currently CalcCo has support for:
+Currently, CalcCo has support for:
 * addition (+)
 * subtraction (-)
 * multiplication (*)
@@ -74,7 +74,7 @@ Currently CalcCo has support for:
 * exponents (**)
 * modulo (%)
 
-The current itteration does not follow PEMDAS, it only has support for left to right calculation. Future support for PEMDAS is planned.
+The current iteration does not follow PEMDAS; it only supports left-to-right calculations. Future support for PEMDAS is planned.
 
 <br>
 <br>
