@@ -11,7 +11,7 @@ int main()
 {
     // print a calulator and welcome message
     std::cout << ascii::logo();
-    std::cout << "Welcom to Cocalc, your go to quick calclulator!\n\n";
+    std::cout << "Welcome to Cocalc, your go-to quick calculator!\n\n";
 
 
     while (true)
@@ -21,7 +21,7 @@ int main()
         {
             // get equation form user
             std::string equation;
-            std::cout << "Enter a Mathimatical Equation (! to quit): ";
+            std::cout << "Enter a Mathematical Equation (! to quit): ";
             //cin only read till the first white space
             std::getline(std::cin, equation);
             
