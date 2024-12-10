@@ -1,6 +1,32 @@
 # Calc.Co
 Welcome to the official page for EECS 348 Group 8's Calculator Project! We’re excited to share our journey as we work together to create a reliable and efficient calculator, our team is focused on developing a tool that’s user-friendly and effective, with features designed to simplify calculations and make your life easier. Stay tuned for updates as we bring this project to life!
 
+## How to Use CalcCo
+After downloading CalcCo open a terminal in the folder it was downloaded in then run:
+```
+> ./CalcCo
+```
+
+After running the program you will be met with the following prompted:
+
+```
+Enter a Mathimatical Equation (Q or q to quit):
+```
+
+Simply enter an equation to you desire to be solved for example:
+
+```
+Enter a Mathimatical Equation (Q or q to quit): (20/10) + (2**3)-8
+
+```
+Once you hit the enterf key the CalcCo calculate to solution to the equation an print it out in the terminal or return an appriate error message.
+
+or to quit the program
+
+```
+Enter a Mathimatical Equation (Q or q to quit): q
+```
+
 ## How to Setup CalcCo
 
 ### For Developers
@@ -36,33 +62,17 @@ or
 make CalcCo
 ```
 
+To remove all *.o and executable, run:
+```
+make clean clear
+```
+
 This will compile all the neccesary files to build the CalcCo
 
 Afterwards to run the CalcCo program:
 
 ```
 ./bin/CalcCo
-```
-
-## How to Use CalcCo
-After running the program you will be met with the following prompted:
-
-```
-Enter a Mathimatical Equation (! to quit):
-```
-
-Simply enter an equation to you desire to be solved for example:
-
-```
-Enter a Mathimatical Equation (! to quit): 20/10
-
-```
-Once you hit the enter key the CalcCo calculate to solution to the equation an print it out in the terminal
-
-or to quit the program
-
-```
-Enter a Mathimatical Equation (! to quit): !
 ```
 
 ### Operator Support Status 
@@ -73,8 +83,6 @@ Currently CalcCo has support for:
 * division (/)
 * exponents (**)
 * modulo (%)
-
-The current itteration does not follow PEMDAS, it only has support for left to right calculation. Future support for PEMDAS is planned.
 
 <br>
 <br>
