@@ -5,13 +5,15 @@
 #include "../include/tokenizer.hpp"
 #include "../include/tree.hpp"
 
+#include <vector>
+
 using namespace tokenizer;
 namespace parser
 {
     class Parser
     {
     public:
-        double Parse(const std::string equation);
+        long double Parse(std::vector<Tokenizer::Token> tokens);
 
     private:
         // functions for parsign numbers,parentheses and operators

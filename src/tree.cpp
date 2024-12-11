@@ -72,7 +72,7 @@ namespace tree
     }
 
     // recursivly print the tree inorder
-    double BinaryTree::_rec_evaluateTree(BinaryTree::Node *cur_node)
+    long double BinaryTree::_rec_evaluateTree(BinaryTree::Node *cur_node)
     {
         // base case
         //if the cyrent node is a leaf node
@@ -81,7 +81,7 @@ namespace tree
             return std::stod(cur_node->value); // Convert string value to double
         }
         
-        double left = 0, right = 0;
+        long double left = 0, right = 0;
 
         // visit left node
         if (cur_node->left)
@@ -100,7 +100,7 @@ namespace tree
     }
 
     // calculate equations stored in tree
-    double BinaryTree::evaluateTree(BinaryTree::Node *root)
+    long double BinaryTree::evaluateTree(BinaryTree::Node *root)
     {
         if (!root)
         {

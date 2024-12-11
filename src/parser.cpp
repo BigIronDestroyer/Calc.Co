@@ -201,10 +201,8 @@ namespace parser
         }
     }
 
-    double Parser::Parse(const std::string equation)
+    long double Parser::Parse(std::vector<tokenizer::Tokenizer::Token> tokens)
     {
-        Tokenizer tokenizer;
-        std::vector<Tokenizer::Token> tokens = tokenizer.tokenize(equation);
         // gets the begining and end of tokens as constants
         auto tokenItr = tokens.cbegin();
         auto end = tokens.cend();
@@ -222,7 +220,7 @@ namespace parser
         }
 
         //evaluate equation
-        double result = Tree.evaluateTree(resultTree);
+       long double result = Tree.evaluateTree(resultTree);
 
         return result;
     }
