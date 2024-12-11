@@ -13,7 +13,7 @@ int main()
 {
     // print a calulator and welcome message
     std::cout << ascii::logo();
-    std::cout << "Welcom to CalcCo, your go to quick calclulator!\n\n";
+    std::cout << "Welcome to CalcCo, your go-to quick calculator!\n\n";
     // initilaize parser
     Parser parser;
 
@@ -24,7 +24,7 @@ int main()
         {
             // get equation form user
             std::string equation;
-            std::cout << "Enter a Mathimatical Equation (Q or q to quit): ";
+            std::cout << "Enter a Mathematical Equation (Q or q to quit): ";
             // cin only read till the first white space
             std::getline(std::cin, equation);
 
