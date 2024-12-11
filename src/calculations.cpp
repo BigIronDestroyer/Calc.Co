@@ -8,7 +8,7 @@
 
 namespace calculate
 {
-    double solve(std::string opp, double x, double y)
+    long double solve(std::string opp, long double x, long double y)
     {
         if (opp == "+")
         {
@@ -20,7 +20,8 @@ namespace calculate
             return x - y;
         }
 
-        if (opp == "/"){
+        if (opp == "/")
+        {
             if (y == 0)
             {
                 throw std::runtime_error("Error: Divition by Zero");
@@ -33,17 +34,18 @@ namespace calculate
         }
         if (opp == "%")
         {
-            if (y == 0){
+            if (y == 0)
+            {
                 throw std::runtime_error("Error: Modulo by zero");
             }
 
-            //fmod allows for modulo with doubles
-            return std::fmod(x, y); 
+            // fmod allows for modulo with doubles
+            return std::fmod(x, y);
         }
 
         if (opp == "**")
         {
-            //pow allows for expomnents with doubles
+            // pow allows for expomnents with doubles
             return std::pow(x, y);
         }
 
