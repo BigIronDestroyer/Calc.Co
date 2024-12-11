@@ -33,12 +33,12 @@ Enter a Mathimatical Equation (Q or q to quit): q
 
 #### Requirments 
 
-clang++/g++ version 16.0.0
+clang++/g++ version 15.0.0 or greater
 
 For ease of development this project uses GNU Make for building and compiling:
     * Linux: run ```apt install make```
     * MacOS: ```brew install make ```
-    * Windows: If you have Git for Windows installed, you can use the make command from Git Bash.
+    * Windows: To use ```make`` on windows you must install MinGw
 
 #### Get Started
 
