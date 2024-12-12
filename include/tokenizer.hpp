@@ -2,6 +2,8 @@
 #ifndef TOKEN_HPP
 #define TOKEN_HPP
 
+#include <iostream>
+#include <vector>
 #include "../include/calculations.hpp"
 
 namespace tokenizer

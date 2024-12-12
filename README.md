@@ -31,6 +31,8 @@ Enter a Mathematical Equation (Q or q to quit): q
 
 ### For Developers
 
+This project was developed in vscode
+
 #### Requirments 
 
 clang++/g++ version 15.0.0 or greater
@@ -38,7 +40,7 @@ clang++/g++ version 15.0.0 or greater
 For ease of development this project uses GNU Make for building and compiling:
  * Linux: run ```apt install make```
  * MacOS: ```brew install make ```
- * Windows: To use ```make`` on windows you must install MinGw
+ * Windows: To use ```make`` on windows follow this guide https://code.visualstudio.com/docs/cpp/config-mingw
 
 #### Get Started
 
