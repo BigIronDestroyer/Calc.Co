@@ -30,6 +30,7 @@ int main()
 
             if (equation == "Q" || equation == "q")
             {
+                printf("Goodbye!\n");
                 break;
             }
             else
