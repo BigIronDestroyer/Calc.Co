@@ -1,5 +1,6 @@
 #include <iostream>
 #include <stdexcept>
+#include <sstream>
 #include <string>
 #include <cmath> // For pow function
 
@@ -7,33 +8,50 @@
 
 namespace calculate
 {
-    int solve(char opp, int x, int y)
+    long double solve(std::string opp, long double x, long double y)
     {
-        switch (opp)
+        if (opp == "+")
         {
-        case '+':
             return x + y;
-        case '-':
+        }
+
+        if (opp == "-")
+        {
             return x - y;
-        case '/':
+        }
+
+        if (opp == "/")
+        {
             if (y == 0)
             {
-                throw std::runtime_error("Divition by Zero");
+                throw std::runtime_error("Error: Divition by Zero");
             }
             return x / y;
-        case '*':
-            return x * y;
-        case '%':
-            return x % y;
-        default:
-            // If none of the cases match, you need to handle this
-            throw std::invalid_argument("Invalid operator");
         }
-    }
+        if (opp == "*")
+        {
+            return x * y;
+        }
+        if (opp == "%")
+        {
+            if (y == 0)
+            {
+                throw std::runtime_error("Error: Modulo by zero");
+            }
 
-    int exponent(int x, int y)
-    {
-        return pow(x, y);
-    }
+            // fmod allows for modulo with doubles
+            return std::fmod(x, y);
+        }
 
+        if (opp == "**")
+        {
+            // pow allows for expomnents with doubles
+            return std::pow(x, y);
+        }
+
+        // If none of the cases match, you need to handle this
+        std::ostringstream oss;
+        oss << "Error: Unsupported Operator '" << opp << "'";
+        throw std::invalid_argument(oss.str());
+    }
 }
