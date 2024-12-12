@@ -23,14 +23,15 @@ namespace tree
         Node *createNode(std::string v);
         Node *createNumberNode(std::string o, double v);
         Node *createOperatorNode(std::string o, double v);
-        double evaluateTree(BinaryTree::Node *tree);
-        void printTree(BinaryTree::Node *tree);
+        long double evaluateTree(BinaryTree::Node *tree);
+        
 
     private:
         Node *root;
-        double _rec_evaluateTree(BinaryTree::Node *cur_node);
+        long double _rec_evaluateTree(BinaryTree::Node *cur_node);
         std::string printNode(BinaryTree::Node* root);
         void _rec_printTree(BinaryTree::Node *root);
+        void printTree(BinaryTree::Node *tree);
     };
 }
 #endif

@@ -5,6 +5,7 @@
 
 #include "../include/ascii.hpp"
 #include "../include/parser.hpp"
+#include "../include/tokenizer.hpp"
 #include "../include/calculations.hpp"
 
 using namespace parser;
@@ -12,7 +13,7 @@ int main()
 {
     // print a calulator and welcome message
     std::cout << ascii::logo();
-    std::cout << "Welcom to CalcCo, your go to quick calclulator!\n\n";
+    std::cout << "Welcome to CalcCo, your go-to quick calculator!\n\n";
     // initilaize parser
     Parser parser;
 
@@ -23,7 +24,7 @@ int main()
         {
             // get equation form user
             std::string equation;
-            std::cout << "Enter a Mathimatical Equation (Q or q to quit): ";
+            std::cout << "Enter a Mathematical Equation (Q or q to quit): ";
             // cin only read till the first white space
             std::getline(std::cin, equation);
 
@@ -32,18 +33,22 @@ int main()
                 break;
             }
             else
-            {
-                // parse the equation
-                double result = parser.Parse(equation);
+            {   
+                //tokenize the equation
+                Tokenizer tokenizer;
+                std::vector<Tokenizer::Token> tokens = tokenizer.tokenize(equation);
+
+                // parse and evaluate the equation
+                long double result = parser.Parse(tokens);
 
                 // if the result is ##.00 floor it to an int
                 if (std::floor(result) == result)
                 {
-                    printf("Output: %d\n", static_cast<int>(result));
+                    printf("Output: %ld\n", static_cast<long int>(result));
                 }
                 else
                 {
-                    printf("Output: %.3f\n", result);
+                    printf("Output: %.3Lf\n", result);
                 }
             }
         }

@@ -38,6 +38,9 @@ namespace parser
             tree::BinaryTree::Node *newNode = Tree->createNode(tokenItr->value);
             // move to the next token
             tokenItr++;
+            if (tokenItr->type == Tokenizer::TokenType::PARENTHESES && tokenItr->value == "("){
+                throw std::runtime_error("Error: Missing Operator");
+            }
 
             return newNode;
         }
@@ -82,6 +85,10 @@ namespace parser
             unaryNode->right = newNode;
 
             return unaryNode;
+        }
+
+        if (tokenItr->type == Tokenizer::TokenType::OPERATOR2 || tokenItr->type == Tokenizer::TokenType::OPERATOR2){
+            throw std::invalid_argument("Error: Missing Operand");
         }
 
         // if there is no retrun there is an error
@@ -201,10 +208,8 @@ namespace parser
         }
     }
 
-    double Parser::Parse(const std::string equation)
+    long double Parser::Parse(std::vector<tokenizer::Tokenizer::Token> tokens)
     {
-        Tokenizer tokenizer;
-        std::vector<Tokenizer::Token> tokens = tokenizer.tokenize(equation);
         // gets the begining and end of tokens as constants
         auto tokenItr = tokens.cbegin();
         auto end = tokens.cend();
@@ -218,11 +223,11 @@ namespace parser
         tree::BinaryTree::Node *resultTree = parseExpression(tokenItr, end, treePtr);
         if (tokenItr != end)
         {
-            throw std::runtime_error("Error: Parseing unexpectedly end while the equations was not fully processed");
+            throw std::runtime_error("Error: Parsing unexpectedly ended while the equation was not fully processed");
         }
 
         //evaluate equation
-        double result = Tree.evaluateTree(resultTree);
+       long double result = Tree.evaluateTree(resultTree);
 
         return result;
     }

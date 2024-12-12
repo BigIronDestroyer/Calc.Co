@@ -4,7 +4,7 @@
 namespace calculate
 {
 
-    double solve(std::string opp, double x, double y);
+    long double solve(std::string opp, long double x, long double y);
 
 }
 
