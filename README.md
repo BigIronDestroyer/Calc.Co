@@ -45,6 +45,7 @@ For ease of development this project uses GNU Make for building and compiling:
 For developers to get started first you need to clone this directory and then change the directory to the program folder.
 
 In your terminal or command prompt run the following:
+In your terminal or command prompt run the following:
 
 ```
 git clone https://github.com/BigIronDestroyer/Calc.Co.git
@@ -76,6 +77,7 @@ Afterwards to run the CalcCo program:
 ```
 
 ### Operator Support Status 
+Currently, CalcCo has support for:
 Currently, CalcCo has support for:
 * addition (+)
 * subtraction (-)
